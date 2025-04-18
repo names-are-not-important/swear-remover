@@ -1,2 +1,2 @@
 # swear-remover
-Removes swears as you type them customizable
+Removes swears as you type them. also customizable
