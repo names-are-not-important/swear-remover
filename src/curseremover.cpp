@@ -38,6 +38,15 @@ LRESULT CALLBACK KeyboardProc(int nCode, WPARAM wParam, LPARAM lParam) {
         }
         if (wParam == WM_KEYDOWN || wParam == WM_SYSKEYDOWN) {
             char key;
+            if(vkCode == VK_BACK){
+                if(currentletters != ""){
+
+
+                
+                currentletters.pop_back();
+                }
+        }
+            
             // Only log printable characters
             if ((vkCode >= 0x30 && vkCode <= 0x5A) || // Letters/numbers
                 (vkCode >= 0x60 && vkCode <= 0x6F) || vkCode == 32)  // Numpad
@@ -46,20 +55,19 @@ LRESULT CALLBACK KeyboardProc(int nCode, WPARAM wParam, LPARAM lParam) {
                 
 //is it space
                 if(vkCode == 32){
-                currentword = "";
+                
                 currentword = currentletters;
                 
                 for(auto& c : currentword)
                     {
                      c = tolower(c);
-                     //make it lowercasefuck
+                     //make it lowercase
                     }
                     int len = 0;
                     for(auto _: curses)
                     {
                       len++;
                     }
-                    
                 for (int i = 0; i < len; i++){
                     if(currentword == curses[i][0]){
                         currentword = curses[i][1];
@@ -68,7 +76,7 @@ LRESULT CALLBACK KeyboardProc(int nCode, WPARAM wParam, LPARAM lParam) {
                         SendKey(VK_BACK, 0);  // Key down for Backspace             
                         SendKey(VK_BACK, KEYEVENTF_KEYUP);  // Key up for Backspace
                         SendKey(VK_CONTROL, KEYEVENTF_KEYUP);  // Key up for Ctrl
-                        
+
                         for(auto b: curses[i][1]){
                         SendKey(VkKeyScan(b), 0);  // Key down for Backspace             
                         SendKey(VkKeyScan(b), KEYEVENTF_KEYUP);  // Key up for Backspace
@@ -78,6 +86,7 @@ LRESULT CALLBACK KeyboardProc(int nCode, WPARAM wParam, LPARAM lParam) {
                 }
                 
                 currentletters = "";
+                currentword = "";
                 }else{
                     currentletters = currentletters + key;
 
