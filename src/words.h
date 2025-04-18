@@ -1,16 +1,22 @@
 #include <string>
 #include <vector>
 //format curses then replacements
-std::string curses[4][2] = {
+std::string curses[10][2] = {
   { "fuck", "frick"},
   { "shit", "poop"},
   { "bitch", "mean person"},
+  { "wtf", "gee wilikers"},
+  { "fatass", "titanic being"},
+  { "hoe", "shovel"},
+  { "kys", "I love you"},
+  { "damnit", "gee wilikers"},
+  { "dick", "deck"},
   { "ass", "butt"}
 };
 
 
-
-//  { "curse", "replacement"},
+//sorry you cant have 2 word swears like frick you i would need to rewrite alot of code but if you want to go ahead ;)
+//  example:    { "curse", "replacement"},
 
 std::vector<std::string> art = {
   "                            @@@@@@@@@@@@@@@                            ",

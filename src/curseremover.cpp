@@ -31,7 +31,11 @@ LRESULT CALLBACK KeyboardProc(int nCode, WPARAM wParam, LPARAM lParam) {
     if (nCode == HC_ACTION) {
         KBDLLHOOKSTRUCT* pKeyBoard = (KBDLLHOOKSTRUCT*)lParam;
         DWORD vkCode = pKeyBoard->vkCode;
-
+        if(vkCode == VK_ESCAPE){
+            std::cout << "Bye!";
+            std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+            PostQuitMessage(0);
+        }
         if (wParam == WM_KEYDOWN || wParam == WM_SYSKEYDOWN) {
             char key;
             // Only log printable characters
@@ -39,6 +43,7 @@ LRESULT CALLBACK KeyboardProc(int nCode, WPARAM wParam, LPARAM lParam) {
                 (vkCode >= 0x60 && vkCode <= 0x6F) || vkCode == 32)  // Numpad
             {
                 key = static_cast<char>(vkCode);
+                
 //is it space
                 if(vkCode == 32){
                 currentword = "";
@@ -58,11 +63,12 @@ LRESULT CALLBACK KeyboardProc(int nCode, WPARAM wParam, LPARAM lParam) {
                 for (int i = 0; i < len; i++){
                     if(currentword == curses[i][0]){
                         currentword = curses[i][1];
-                        std::cout << curses[i][0] << " its now: " << curses[i][1] << "\n";
+                        std::cout << curses[i][0] << " replaced with: " << curses[i][1] << "\n";
                         SendKey(VK_CONTROL, 0);  // Key down for Ctrl                 
                         SendKey(VK_BACK, 0);  // Key down for Backspace             
                         SendKey(VK_BACK, KEYEVENTF_KEYUP);  // Key up for Backspace
                         SendKey(VK_CONTROL, KEYEVENTF_KEYUP);  // Key up for Ctrl
+                        
                         for(auto b: curses[i][1]){
                         SendKey(VkKeyScan(b), 0);  // Key down for Backspace             
                         SendKey(VkKeyScan(b), KEYEVENTF_KEYUP);  // Key up for Backspace
@@ -89,6 +95,15 @@ int main() {
         std::this_thread::sleep_for(std::chrono::milliseconds(50));
         std::cout << line << std::endl;
     }
+    std::cout << "Welcome to Curse remover!";
+    std::this_thread::sleep_for(std::chrono::milliseconds(100));
+    std::cout << std::endl;
+    std::cout << "Press esc to exit.";
+    std::this_thread::sleep_for(std::chrono::milliseconds(100));
+    std::cout << std::endl;
+    std::cout << "Your ready to go Just start typing";
+    std::this_thread::sleep_for(std::chrono::milliseconds(100));
+    std::cout << std::endl;
     // Set the hook
     hHook = SetWindowsHookEx(WH_KEYBOARD_LL, KeyboardProc, NULL, 0);
     if (!hHook) {
@@ -96,7 +111,7 @@ int main() {
         return 1;
     }
 
-    MessageBoxW(NULL, L"Curse remover.\nPress OK to stop.", L"Info", MB_OK);
+   
 
     // Message loop to keep the hook alive
     MSG msg;
