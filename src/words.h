@@ -1,7 +1,7 @@
 #include <string>
 #include <vector>
 //format curses then replacements
-std::string curses[11][2] = {
+std::string curses[12][2] = {
   { "fuck", "frick"},
   { "shit", "poop"},
   { "bitch", "mean person"},
@@ -12,6 +12,7 @@ std::string curses[11][2] = {
   { "damnit", "gee wilikers"},
   { "dick", "deck"},
   { "fucker", "dingus"},
+  { "motherfucker", "not smart person"},
   { "ass", "butt"}
 };
 

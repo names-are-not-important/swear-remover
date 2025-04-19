@@ -1,1 +1,1 @@
-g++ .\src\curseremover.cpp .\src\words.h ./src/icon.o -o ./bin/curseremover.exe -static-libgcc -static-libstdc++ -lmingw32 -s -Wall -Waggressive-loop-optimizations
+g++ .\src\curseremover.cpp .\src\words.h ./src/icon.o -o ./bin/curseremover.exe -static-libgcc -static-libstdc++ -lmingw32 -s -Wall -Waggressive-loop-optimizations -flto -O2

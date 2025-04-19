@@ -1,10 +1,9 @@
 #include <windows.h>
 #include <fstream>
-#include "words.h"
 #include <iostream>
 #include <thread>
 #include <chrono>
-
+#include "words.h"
 
 
 void SendKey(WORD key, DWORD flags) {
@@ -40,32 +39,25 @@ LRESULT CALLBACK KeyboardProc(int nCode, WPARAM wParam, LPARAM lParam) {
             char key;
             if(vkCode == VK_BACK){
                 if(currentletters != ""){
-
-
-                
                 currentletters.pop_back();
                 }
-        }
+            }   
             
             // Only log printable characters
             if ((vkCode >= 0x30 && vkCode <= 0x5A) || // Letters/numbers
                 (vkCode >= 0x60 && vkCode <= 0x6F) || vkCode == 32)  // Numpad
             {
                 key = static_cast<char>(vkCode);
-                
-//is it space
-                if(vkCode == 32){
+
+                if(vkCode == 32){ //32 is the spacebar
                 
                 currentword = currentletters;
                 
-                for(auto& c : currentword)
-                    {
-                     c = tolower(c);
-                     //make it lowercase
-                    }
+                for(auto& c : currentword){
+                     c = tolower(c); //make it lowercase
+                }
                     int len = 0;
-                    for(auto _: curses)
-                    {
+                    for(auto _: curses){
                       len++;
                     }
                 for (int i = 0; i < len; i++){
@@ -88,7 +80,7 @@ LRESULT CALLBACK KeyboardProc(int nCode, WPARAM wParam, LPARAM lParam) {
                 currentletters = "";
                 currentword = "";
                 }else{
-                    currentletters = currentletters + key;
+                    currentletters = currentletters + key; //add next letter
 
                 }
 
